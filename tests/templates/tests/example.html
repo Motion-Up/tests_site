@@ -1,0 +1,35 @@
+{% extends 'tests/base.html' %}
+
+{% block content %}
+  <main>
+    <div class="py-5 text-center">
+      <h2>Checkout form</h2>
+      <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+    </div>
+
+    <div class="row g-5">
+
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">{{ post  }}</h4>
+        <form method="GET" action="{% url 'answer' %}" class="needs-validation" novalidate>
+
+
+
+            <div class="col-12">
+              <label for="qwert" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+              <input type="text" class="form-control" name="qwert" id="qwert" placeholder="you@example.com">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+</div>
+{% endblock %}
