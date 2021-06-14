@@ -1,0 +1,25 @@
+{% extends 'tests/base.html' %}
+
+{% block content %}
+<br>
+<br>
+ <div class="container marketing" id="tests">
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+      <div class="col-lg-4">
+
+        {% for n in news %}
+        <!--<svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#547"/></svg>  -->
+        <p><img class="img-article-left thumb" src="{{ n.photo.url }}" width="140" height="140"></p>
+        <h2>{{ n.title }}</h2>
+        <p>{{ n.content | truncatechars:150 }}</p>
+        <p><a class="btn btn-secondary" href="{% url 'show_news' n.slug %}">Читать &raquo</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        {% endfor %}
+
+
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+ </div>
+{% endblock %}

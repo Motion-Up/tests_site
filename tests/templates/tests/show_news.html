@@ -1,0 +1,21 @@
+{% extends 'tests/base.html' %}
+
+{% block content %}
+  <main class="container">
+      <div class="bg-light p-5 rounded">
+      <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">{{ news.title }}</h2>
+        <p> <span class="text-muted">Дата публикации: {{ news.time_create}}</span></p>
+        <p class="lead">{{ news.content|linebreaks }}</p>
+        <br>
+        <br>
+      </div>
+      <div class="col-md-5 order-md-1">
+        <p><img class="img-article-left thumb" src="{{ news.photo.url }}" width="450" height="450"></p>
+      </div>
+
+      </div>
+    </div>
+  </main>
+{% endblock %}

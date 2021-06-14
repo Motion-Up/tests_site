@@ -1,0 +1,92 @@
+{% extends 'tests/base.html' %}
+
+{% block content %}
+<div class="container marketing" id="tests">
+  <main>
+    <div class="py-5 text-center">
+      <h2>{{ post.title }}</h2>
+      <p class="lead">{{ post.content }}</p>
+    </div>
+
+    <div class="row g-5">
+
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">{{ post.title }}</h4>
+
+        {% if result %}
+        <div class="row align-items-md-stretch">
+          <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Результат тестирования</h2>
+            <p>{{ post.title }} = {{ answer }}</p>
+            <!-- <button class="btn btn-outline-light" type="button">Example button</button> -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="h-100 p-5 bg-light border rounded-3">
+              <h2>Таблица ответов</h2>
+              {% for m in results %}
+              <p>{{ m }}</p>
+              {% endfor %}
+            </div>
+            <br>
+            <a class="w-100 btn btn-primary btn-lg" href="{% url 'home' %}" role="button">На главную</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if indicators %}
+
+        <form method="GET" action="{% url 'answer' post.slug  %}" class="needs-validation" novalidate>
+
+            {% for id, indicator in indicators.items %}
+            <div class="col-12">
+              <label for="{{ id }}" class="form-label">{{ indicator|title }}</label>
+              <input type="text" class="form-control" id="{{ id }}" name="{{ id }}" placeholder="впишите данные">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+            {% endfor %}
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Получить результат</button>
+        </form>
+
+        {% endif %}
+
+        {% if error %}
+          <div class="row">
+            <div class="col-md-6" style="margin: 0 auto;">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Ошибка: вводите только числа, не оставляйте пустыми поля заполнения</strong>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        <form method="GET" action="{% url 'answer' post.slug  %}" class="needs-validation" novalidate>
+
+            {% for id, indicator in return_test.items %}
+            <div class="col-12">
+              <label for="{{ id }}" class="form-label">{{ indicator|title }}</label>
+              <input type="text" class="form-control" id="{{ id }}" name="{{ id }}" placeholder="впишите данные">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+            {% endfor %}
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Получить результат</button>
+        </form>
+        {% endif %}
+
+      </div>
+    </div>
+  </main>
+</div>
+
+{% endblock %}

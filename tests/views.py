@@ -10,11 +10,22 @@ from .models import *
 
 def index(request):
     tests = Tests.objects.all()
+    news = News.objects.all()
     context = {
-        'tests': tests
+        'tests': tests,
+        'news': news
     }
+
     return render(request, 'tests/base.html', context=context)
 
+
+def all_tests(request):
+    tests = Tests.objects.all()
+    context = {
+        'tests': tests,
+    }
+
+    return render(request, 'tests/all_tests.html', context=context)
 
 def show_test(request, test_slug):
     post = get_object_or_404(Tests, slug=test_slug)
@@ -27,8 +38,8 @@ def show_test(request, test_slug):
         'post': post,
         'indicators': dict_indicators,
     }
-    print()
-    return render(request, 'tests/base_test.html', context=context)
+
+    return render(request, 'tests/show_test.html', context=context)
 
 
 def answer(request, test_slug):
@@ -46,7 +57,8 @@ def answer(request, test_slug):
             "error": False,
             'results': post.results.split('.'),
         }
-        return render(request, 'tests/base_test.html', context=context)
+        return render(request, 'tests/show_test.html', context=context)
+
     except:
         indicators = post.indicators.split(',')
         # создали словарь чтобы получить номер для id и индикатор для теста
@@ -60,8 +72,28 @@ def answer(request, test_slug):
             'return_test': dict_indicators
 
         }
-        return render(request, 'tests/base_test.html', context=context)
+
+        return render(request, 'tests/show_test.html', context=context)
+
+
+def all_news(request):
+    news = News.objects.all()
+    context = {
+        'news': news,
+    }
+
+    return render(request, 'tests/all_news.html', context=context)
+
+
+def show_news(request, news_slug):
+    news = get_object_or_404(News, slug=news_slug)
+    context = {
+        'news': news
+    }
+
+    return render(request, 'tests/show_news.html', context=context)
 
 
 def pageNotFound(request, exception):
+
     return HttpResponseNotFound('<h1>Page not found!</h1>')

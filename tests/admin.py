@@ -7,5 +7,10 @@ class TestsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title')
+    prepopulated_fields = {'slug': ('title',)}
+
 
 admin.site.register(Tests, TestsAdmin)
+admin.site.register(News, NewsAdmin)
