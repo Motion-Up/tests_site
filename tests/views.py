@@ -29,7 +29,7 @@ def all_tests(request):
 
 def show_test(request, test_slug):
     post = get_object_or_404(Tests, slug=test_slug)
-    indicators = post.indicators.split(',')
+    indicators = post.indicators.split('*')
     # создали словарь чтобы получить номер для id и индикатор для теста
     dict_indicators = {}
     for i in range(len(indicators)):
@@ -45,7 +45,7 @@ def show_test(request, test_slug):
 def answer(request, test_slug):
     post = get_object_or_404(Tests, slug=test_slug)
     formula = post.formula
-    indicators = post.indicators.split(',')
+    indicators = post.indicators.split('*')
     for number in range(len(indicators)):
         formula = formula.replace('number', request.GET.get(f'{number}'), 1)
     try:
@@ -57,10 +57,11 @@ def answer(request, test_slug):
             "error": False,
             'results': post.results.split('.'),
         }
+
         return render(request, 'tests/show_test.html', context=context)
 
     except:
-        indicators = post.indicators.split(',')
+        indicators = post.indicators.split('*')
         # создали словарь чтобы получить номер для id и индикатор для теста
         dict_indicators = {}
         for i in range(len(indicators)):

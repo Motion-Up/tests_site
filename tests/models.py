@@ -7,9 +7,9 @@ from django.urls import reverse
 class Tests(models.Model):
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
-    formula = models.CharField(max_length=120, verbose_name='Формула')
+    formula = models.CharField(max_length=255, verbose_name='Формула')
     content = models.TextField(blank=True, verbose_name='Текст статьи')
-    indicators = models.CharField(max_length=255, default='', verbose_name='Показатели к тестированию')
+    indicators = models.TextField(blank=True, verbose_name='Показатели к тестированию')
     results = models.TextField(blank=True, verbose_name='Таблица результатов')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name='Фото')
 
