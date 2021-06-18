@@ -47,6 +47,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'tests/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'tests/css/register.css' %}" rel="stylesheet">
   </head>
   <body>
 
@@ -69,6 +70,24 @@
             <a class="nav-link" href="{% url 'all_news' %}">Новости</a>
           </li>
         </ul>
+
+        <ul class="navbar-nav me-2 justify-content-end">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Личный кабинет {{ user.username }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'logout' %}">Выйти</a>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Вход</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'register' %}">Регистрация</a>
+          {% endif %}
+          </li>
+        </ul>
+
       </div>
     </div>
   </nav>
@@ -172,13 +191,13 @@
     <!-- /END THE FEATURETTES -->
 
   </div><!-- /.container -->
-{% endblock %}
 
-  <!-- FOOTER -->
+    <!-- FOOTER -->
   <footer class="container">
     <p class="float-end"><a href="#">Вернуться наверх</a></p>
   </footer>
-</main>
+  </main>
+{% endblock %}
 
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

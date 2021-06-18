@@ -23,6 +23,7 @@ from tests.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tests.urls')),
+    path('', include('personal_account.urls')),
 ]
 
 if settings.DEBUG:
