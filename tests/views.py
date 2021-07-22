@@ -1,8 +1,10 @@
+from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponseNotFound, JsonResponse, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template.defaulttags import register
 
 from .models import *
+from personal_account.models import UserResult
 
 
 # Create your views here.
@@ -26,6 +28,7 @@ def all_tests(request):
     }
 
     return render(request, 'tests/all_tests.html', context=context)
+
 
 def show_test(request, test_slug):
     post = get_object_or_404(Tests, slug=test_slug)
@@ -57,6 +60,9 @@ def answer(request, test_slug):
             "error": False,
             'results': post.results.split('.'),
         }
+        if request.user.is_active != False:
+            result_add_database = UserResult.objects.create(user=request.user, name_test=post, results=answer)
+            result_add_database.save()
 
         return render(request, 'tests/show_test.html', context=context)
 
@@ -75,6 +81,15 @@ def answer(request, test_slug):
         }
 
         return render(request, 'tests/show_test.html', context=context)
+
+
+def add_results(request, test_slug):
+    post = get_object_or_404(Tests, slug=test_slug)
+    context = {
+        'post': post,
+
+    }
+    return render(request, 'tests/show_test.html', context)
 
 
 def all_news(request):

@@ -74,7 +74,7 @@
         <ul class="navbar-nav me-2 justify-content-end">
           {% if request.user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Личный кабинет {{ user.username }}</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'personal_page' %}">Личный кабинет {{ user.username }}</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="{% url 'logout' %}">Выйти</a>
@@ -108,7 +108,7 @@
 
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>Добро пожаловать!</h1>
+            <h1>Добро пожаловать {{ user.username }}!</h1>
             <p>Сайт для проведения тестов!</p>
           </div>
         </div>

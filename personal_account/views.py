@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect
 from .forms import CreateUserForm, LoginUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from tests.models import Tests
+from .models import *
 
 
 # Create your views here.
+
 
 def registerPage(request):
     form = CreateUserForm()
@@ -46,3 +49,31 @@ def loginPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
+
+
+def personal_page(request):
+    tests = Tests.objects.all()
+    results = UserResult.objects.all().filter(user=request.user)
+    all_results = {}
+
+    for test in tests:
+        all_results[test.title] = {}
+        test_results = results.filter(name_test=test)
+
+        for number in range(4):
+            if len(test_results) >= number + 1:                                     # Проверяем на существование индекс, если есть то записываем результат
+                all_results[test.title][test_results[number].time_create] = test_results[number].results
+            else:
+                all_results[test.title][number + 1] = 0
+
+        #if len(test_results) >= 4:                                                                  # Получаем результаты
+        #    all_results[test.title][5] = int(test_results[3].results) - int(test_results[0].results)
+        #else:
+        #    all_results[test.title][5] = 'Недостаточно данных'
+
+    context = {
+        'tests': tests,
+        'results': results,
+        'all_results': all_results,
+    }
+    return render(request, 'personal_account/personal_page.html', context)

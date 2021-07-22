@@ -6,7 +6,7 @@
       <div class="row featurette">
       <div class="col-md-7">
         <h2 class="featurette-heading">{{ news.title }}</h2>
-        <p> <span class="text-muted">Дата публикации: {{ news.time_create}}</span></p>
+        <p> <span class="text-muted">Дата публикации: {{ news.time_create|date:"d F Y"}} год.</span></p>
         <p class="lead">{{ news.content|linebreaks }}</p>
         <br>
         <br>
